@@ -19,13 +19,13 @@
 // Input: nums = [3,3], target = 6
 // Output: [0,1]
 
-const twoSum = (array, target) => {
+const twoSum = (nums, target) => {
   const storage = {};
-  for (let i = 0; i < array.length; i++) {
-    const neededValue = target - array[i];
-    if (storage[array[i]] !== undefined) return [storage[array[i]], i];
-    else storage[neededValue] = i;
+  for (let i = 0; i < nums.length; i++) {
+    const neededValue = target - nums[i];
+    if (storage[neededValue] !== undefined) return [storage[neededValue], i];
+    storage[nums[i]] = i;
   }
 };
 
-console.log(twoSum([2, 7, 11, 15], 9));
+console.log(twoSum([3, 2, 4], 6));
