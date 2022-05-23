@@ -1,18 +1,24 @@
-function minEatingSpeed(piles, H) {
-  function canEatAll(speed) {
-    let time = 0;
-    for (let p of piles) {
-      time += Math.ceil(p / speed);
+/**
+ * @param {number[]} piles
+ * @param {number} h
+ * @return {number}
+ */
+var minEatingSpeed = function (piles, h) {
+  let left = 1;
+  let right = Math.max(...piles);
+  let res = right;
+  while (left <= right) {
+    let k = Math.floor((left + right) / 2);
+    let hours = 0;
+    for (const p of piles) {
+      hours += Math.ceil(p / k);
     }
-    return time <= H;
+    if (hours <= h) {
+      res = Math.min(res, k);
+      right = k - 1;
+    } else {
+      left = k + 1;
+    }
   }
-
-  let l = 0;
-  let r = Math.max(...piles); // when the max speed = biggest pile, it only needs 1h to eat each pile
-  while (l < r) {
-    const m = Math.floor((l + r) / 2);
-    if (!canEatAll(m)) l = m + 1;
-    else r = m;
-  }
-  return l;
-}
+  return res;
+};
