@@ -3,12 +3,19 @@
  * @return {number}
  */
 var findMin = function (nums) {
-  const _nums = [nums[nums.length - 1], ...nums, nums[0]];
-  for (var i = 1; i < _nums.length - 1; i++) {
-    if (_nums[i - 1] > _nums[i] && _nums[i] < _nums[i + 1]) {
+  let res = nums[0];
+  let left = 0;
+  let right = nums.length - 1;
+  while (left <= right) {
+    if (nums[left] < nums[right]) {
+      res = Math.min(res, nums[left]);
       break;
     }
+    let mid = Math.floor((left + right) / 2);
+    res = Math.min(res, nums[mid]);
+    if (nums[mid] >= nums[left]) {
+      left = mid + 1;
+    } else right = mid - 1;
   }
-
-  return Math.min(_nums[i - 1], _nums[i]);
+  return res;
 };
