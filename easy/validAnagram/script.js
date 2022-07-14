@@ -6,16 +6,15 @@
 var isAnagram = function (s, t) {
   if (s.length !== t.length) return false;
 
-  const storage = {};
+  const countS = {};
 
-  for (const letter of s) {
-    storage[letter] = (storage[letter] || 0) + 1;
+  for (const char of s) {
+    countS[char] = (countS[char] || 0) + 1;
   }
 
-  for (const letter of t) {
-    if (!storage[letter]) return false;
-    storage[letter]--;
+  for (const char of t) {
+    if (!countS[char]) return false;
+    countS[char]--;
   }
-
   return true;
 };
