@@ -1,24 +1,24 @@
+/**
+ * @param {string[]} strs
+ * @return {string[][]}
+ */
 var groupAnagrams = function (strs) {
-  let mapping = {};
-  for (let str of strs) {
-    let charCount = new Array(26).fill(0);
-    for (let c of str) {
-      charCount[c.charCodeAt(0) - "a".charCodeAt(0)]++;
+  const map = {};
+  for (const str of strs) {
+    const charCount = new Array(26).fill(0);
+    for (const char of str) {
+      charCount[char.charCodeAt() - "a".charCodeAt()]++;
     }
-    if (!mapping[charCount]) mapping[charCount] = [];
-    mapping[charCount].push(str);
+    if (!map[charCount]) map[charCount] = [];
+    map[charCount].push(str);
   }
-  return Object.values(mapping);
+  return Object.values(map);
+
+  // const map = {};
+  // for (const str of strs) {
+  //    const key = str.split('').sort().join('');
+  //     if (!map[key]) map[key] = [];
+  //     map[key].push(str);
+  // }
+  // return Object.values(map);
 };
-
-const strs = ["eat", "tea", "tan", "ate", "nat", "bat"];
-
-groupAnagrams(strs);
-
-// const map = {};
-// for (const str of strs) {
-//    const key = str.split('').sort().join('');
-//     if (!map[key]) map[key] = [];
-//     map[key].push(str);
-// }
-// return Object.values(map);
