@@ -7,11 +7,9 @@ var longestConsecutive = function (nums) {
   let max = 0;
   for (const num of numSet) {
     if (numSet.has(num - 1)) continue;
-    let length = 1;
-    let curr = num;
-    while (numSet.has(curr + 1)) {
+    let length = 0;
+    while (numSet.has(num + length)) {
       length++;
-      curr++;
     }
     max = Math.max(max, length);
   }
