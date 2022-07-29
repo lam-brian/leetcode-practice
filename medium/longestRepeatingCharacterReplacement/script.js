@@ -1,14 +1,17 @@
+/**
+ * @param {string} s
+ * @param {number} k
+ * @return {number}
+ */
 var characterReplacement = function (s, k) {
   const count = {};
+  let maxF = 0;
   let length = 0;
-  let maxChar = 0;
   let left = 0;
   for (let right = 0; right < s.length; right++) {
-    if (!count[s[right]]) count[s[right]] = 0;
-    count[s[right]]++;
-    maxChar = Math.max(maxChar, count[s[right]]);
-
-    if (right - left + 1 - maxChar > k) {
+    count[s[right]] = (count[s[right]] || 0) + 1;
+    maxF = Math.max(maxF, count[s[right]]);
+    if (right - left + 1 - maxF > k) {
       count[s[left]]--;
       left++;
     }
@@ -16,6 +19,3 @@ var characterReplacement = function (s, k) {
   }
   return length;
 };
-
-const s = "AABABBA";
-console.log(characterReplacement(s, 1));
