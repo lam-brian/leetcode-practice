@@ -3,16 +3,15 @@
  * @return {string[]}
  */
 var generateParenthesis = function (n) {
-  res = [];
-
-  const backtrack = (left, right, str) => {
-    if (right > left) return;
-    if (left === n && right === n) {
+  const res = [];
+  const backtrack = (open, close, str) => {
+    if (open < close) return;
+    if (open === n && close === n) {
       res.push(str);
       return;
     }
-    if (left < n) backtrack(left + 1, right, str + "(");
-    if (right < n) backtrack(left, right + 1, str + ")");
+    if (open < n) backtrack(open + 1, close, str + "(");
+    if (close < n) backtrack(open, close + 1, str + ")");
   };
   backtrack(0, 0, "");
   return res;
