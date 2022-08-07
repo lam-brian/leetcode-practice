@@ -13,12 +13,8 @@ var carFleet = function (target, position, speed) {
   cars.sort((a, b) => b[0] - a[0]);
   for (const [p, s] of cars) {
     stack.push((target - p) / s);
-    if (
-      stack.length > 1 &&
-      stack[stack.length - 1] <= stack[stack.length - 2]
-    ) {
+    if (stack.length > 1 && stack[stack.length - 1] <= stack[stack.length - 2])
       stack.pop();
-    }
   }
   return stack.length;
 };
