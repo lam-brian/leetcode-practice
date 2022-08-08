@@ -3,19 +3,17 @@
  * @return {number}
  */
 var largestRectangleArea = function (heights) {
-  const stack = [];
+  heights.push(0);
   let res = 0;
+  const stack = [];
   for (let i = 0; i < heights.length; i++) {
     let start = i;
-    while (stack.length > 0 && stack[stack.length - 1][1] > heights[i]) {
+    while (stack.length && stack[stack.length - 1][1] > heights[i]) {
       const [index, height] = stack.pop();
       res = Math.max(res, height * (i - index));
       start = index;
     }
     stack.push([start, heights[i]]);
-  }
-  for (const [i, h] of stack) {
-    res = Math.max(res, h * (heights.length - i));
   }
   return res;
 };
