@@ -3,31 +3,39 @@
  * @param {string} s2
  * @return {boolean}
  */
- var checkInclusion = function(s1, s2) {
+var checkInclusion = function (s1, s2) {
   if (s1.length > s2.length) return false;
-  const countS1 = new Array(26).fill(0);
-  const window = new Array(26).fill(0);
-  
-  for (const char of s1) {
-      const index = char.charCodeAt() - 'a'.charCodeAt();
-      countS1[index]++;
-  }
+  const s1Count = new Array(26).fill(0);
+  const s2Count = new Array(26).fill(0);
+
   for (let i = 0; i < s1.length; i++) {
-      const index = s2[i].charCodeAt() - 'a'.charCodeAt();
-      window[index]++
+    s1Count[s1[i].charCodeAt() - "a".charCodeAt()]++;
+    s2Count[s2[i].charCodeAt() - "a".charCodeAt()]++;
   }
-  let start = 0;
-  let end = s1.length - 1;
-  
-  while (end < s2.length) {
-      if (window.join('') === countS1.join('')) return true;
-      end++;
-      if (end === s2.length) break;
-      const startIndex = s2[start].charCodeAt() - 'a'.charCodeAt();
-      const endIndex = s2[end].charCodeAt() - 'a'.charCodeAt();
-      window[startIndex]--;
-      window[endIndex]++;
-      start++;
+
+  let matches = 0;
+
+  for (let i = 0; i < 26; i++) {
+    if (s1Count[i] === s2Count[i]) matches++;
   }
-  return false;
+
+  let left = 0;
+  for (let right = s1.length; right < s2.length; right++) {
+    if (matches === 26) return true;
+
+    let indexR = s2[right].charCodeAt() - "a".charCodeAt();
+    let indexL = s2[left].charCodeAt() - "a".charCodeAt();
+
+    s2Count[indexR]++;
+    if (s1Count[indexR] === s2Count[indexR]) matches++;
+    else if (s1Count[indexR] + 1 === s2Count[indexR]) matches--;
+
+    s2Count[indexL]--;
+    if (s1Count[indexL] === s2Count[indexL]) matches++;
+    else if (s1Count[indexL] - 1 === s2Count[indexL]) matches--;
+
+    left++;
+  }
+
+  return matches === 26;
 };
