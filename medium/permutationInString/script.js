@@ -3,6 +3,8 @@
  * @param {string} s2
  * @return {boolean}
  */
+
+// Using Arrays ////////////////////////////
 var checkInclusion = function (s1, s2) {
   if (s1.length > s2.length) return false;
   const s1Count = new Array(26).fill(0);
@@ -38,4 +40,37 @@ var checkInclusion = function (s1, s2) {
   }
 
   return matches === 26;
+};
+
+// Using Objects //////////////////////////////////////
+
+var checkInclusion = function (s1, s2) {
+  if (s1.length > s2.length) return false;
+
+  const countS1 = {};
+  const countS2 = {};
+
+  for (let i = 0; i < s1.length; i++) {
+    countS1[s1[i]] = (countS1[s1[i]] || 0) + 1;
+  }
+
+  let need = Object.keys(countS1).length;
+  let have = 0;
+  let left = 0;
+  for (let right = 0; right < s2.length; right++) {
+    let char = s2[right];
+    countS2[char] = (countS2[char] || 0) + 1;
+    if (char in countS1 && countS2[char] === countS1[char]) have++;
+
+    if (right - left + 1 === s1.length) continue;
+
+    if (have === need) return true;
+
+    char = s2[left];
+    countS2[char]--;
+    if (char in countS1 && countS2[char] + 1 === countS1[char]) have--;
+    left++;
+  }
+
+  return false;
 };
