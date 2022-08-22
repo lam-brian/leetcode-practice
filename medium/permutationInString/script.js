@@ -47,28 +47,29 @@ var checkInclusion = function (s1, s2) {
 var checkInclusion = function (s1, s2) {
   if (s1.length > s2.length) return false;
 
-  const countS1 = {};
-  const countS2 = {};
+  const s1Count = {};
+  const s2Count = {};
 
-  for (let i = 0; i < s1.length; i++) {
-    countS1[s1[i]] = (countS1[s1[i]] || 0) + 1;
+  for (const char of s1) {
+    s1Count[char] = (s1Count[char] || 0) + 1;
   }
 
-  let need = Object.keys(countS1).length;
+  let need = Object.keys(s1Count).length;
   let have = 0;
   let left = 0;
+
   for (let right = 0; right < s2.length; right++) {
     let char = s2[right];
-    countS2[char] = (countS2[char] || 0) + 1;
-    if (char in countS1 && countS2[char] === countS1[char]) have++;
+    s2Count[char] = (s2Count[char] || 0) + 1;
+    if (char in s1Count && s2Count[char] === s1Count[char]) have++;
 
-    if (right - left + 1 === s1.length) continue;
+    if (right - left + 1 < s1.length) continue;
 
-    if (have === need) return true;
+    if (need === have) return true;
 
     char = s2[left];
-    countS2[char]--;
-    if (char in countS1 && countS2[char] + 1 === countS1[char]) have--;
+    s2Count[char]--;
+    if (char in s1Count && s1Count[char] - 1 === s2Count[char]) have--;
     left++;
   }
 
