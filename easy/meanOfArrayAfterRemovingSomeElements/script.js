@@ -4,20 +4,16 @@
  */
 var trimMean = function (arr) {
   arr.sort((a, b) => a - b);
-  let total = arr.length;
+
+  const total = arr.length;
+  const removalCount = total * 0.05;
+  const left = 0 + removalCount;
+  const right = total - removalCount;
   let sum = 0;
-  for (const num of arr) {
-    sum += num;
+
+  for (let i = left; i < right; i++) {
+    sum += arr[i];
   }
 
-  let lowest = total * 0.05;
-
-  while (lowest > 0) {
-    sum -= arr.pop();
-    sum -= arr.shift();
-    total -= 2;
-    lowest--;
-  }
-
-  return sum / total;
+  return sum / (right - left);
 };
