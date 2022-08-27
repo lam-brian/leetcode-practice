@@ -4,5 +4,16 @@
  * @return {boolean}
  */
 var arrayStringsAreEqual = function (word1, word2) {
-  return word1.join("") === word2.join("");
+  let str1 = "";
+  let str2 = "";
+
+  for (const char of word1) {
+    str1 += char;
+  }
+
+  for (const char of word2) {
+    str2 += char;
+  }
+
+  return str1 === str2;
 };
