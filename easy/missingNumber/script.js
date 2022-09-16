@@ -3,9 +3,18 @@
  * @return {number}
  */
 var missingNumber = function (nums) {
-  let sum = nums.length;
+  // XOR
+  // let res = nums.length;
+  // for (let i = 0; i < nums.length; i++) {
+  //     res ^= nums[i];
+  //     res ^= i;
+  // }
+  // return res;
+
+  // Sum
+  let res = nums.length;
   for (let i = 0; i < nums.length; i++) {
-    sum += i - nums[i];
+    res += i - nums[i];
   }
-  return sum;
+  return res;
 };
