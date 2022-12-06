@@ -9,8 +9,10 @@ var canPlaceFlowers = function (flowerbed, n) {
   for (let i = 0; i < flowerbed.length; i++) {
     let leftEmptyPot;
     let rightEmptyPot;
+
     if (flowerbed[i] === 0) {
       if (i === 0 || flowerbed[i - 1] === 0) leftEmptyPot = true;
+
       if (i === flowerbed.length - 1 || flowerbed[i + 1] === 0)
         rightEmptyPot = true;
 
