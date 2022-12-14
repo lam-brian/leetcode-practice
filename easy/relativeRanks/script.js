@@ -5,13 +5,18 @@
 var findRelativeRanks = function (score) {
   const sorted = [];
   const res = new Array(score.length);
+
   for (let i = 0; i < score.length; i++) {
     sorted.push([i, score[i]]);
   }
+
   sorted.sort((a, b) => b[1] - a[1]);
+
   let point = 1;
+
   for (const [i, s] of sorted) {
     let placement;
+
     if (point === 1) {
       placement = "Gold Medal";
     } else if (point === 2) {
@@ -23,5 +28,6 @@ var findRelativeRanks = function (score) {
     res[i] = placement;
     point++;
   }
+
   return res;
 };
