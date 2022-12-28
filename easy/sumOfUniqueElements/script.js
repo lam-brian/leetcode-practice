@@ -4,13 +4,17 @@
  */
 var sumOfUnique = function (nums) {
   const map = new Map();
+
   let res = 0;
+
   for (const num of nums) {
     map.set(num, (map.get(num) || 0) + 1);
   }
+
   for (const [num, freq] of map) {
     if (freq === 1) res += num;
   }
+
   return res;
   // const bucket = [];
   // let res = 0;
